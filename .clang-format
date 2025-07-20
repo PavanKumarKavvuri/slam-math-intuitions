@@ -1,0 +1,42 @@
+# .clang-format for slam-toy-project
+
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Braces and formatting style
+BreakBeforeBraces: Allman
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortBlocksOnASingleLine: false
+AlwaysBreakTemplateDeclarations: Yes
+SpacesInAngles: false
+
+# Line length
+ColumnLimit: 100
+
+# Includes
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '^<.*\.h>'
+    Priority:        1
+    SortPriority:    1
+  - Regex:           '^"eigen3/.*"'
+    Priority:        2
+    SortPriority:    2
+  - Regex:           '^"'
+    Priority:        3
+    SortPriority:    3
+  - Regex:           '.*'
+    Priority:        4
+    SortPriority:    4
+
+# C++11/14/17/20 compatible
+Standard: Latest
+
+# Extra rules
+DerivePointerAlignment: false
+PointerAlignment: Left
+SpaceAfterCStyleCast: true
+SpacesBeforeTrailingComments: 1
