@@ -1,11 +1,13 @@
 # Specify the minimum required CMake version
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.10...4.0)
 
 # Define the project name, version, description, and languages
 project(
   MathIntuitionsProject # Project name
   VERSION 1.0 # Optional version info
-  DESCRIPTION "A project to explore mathematical intuitions"
+  DESCRIPTION
+    "A project to explore mathematical intuitions of SLAM Algorithms" # Optional
+                                                                      # description
   LANGUAGES CXX # Use only C++
 )
 
