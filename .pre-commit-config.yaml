@@ -70,7 +70,7 @@ repos:
       exclude: extern/
       name: ament_cppcheck
       description: Static code analysis of C/C++ files.
-      stages: [pre-commit]
+      stages: [commit]
       entry: ament_cppcheck
       language: system
       files: \.(h\+\+|h|hh|hxx|hpp|cuh|c|cc|cpp|cu|c\+\+|cxx|tpp|txx)$
@@ -79,8 +79,20 @@ repos:
       exclude: extern/
       name: ament_cpplint
       description: Static code analysis of C/C++ files.
-      stages: [pre-commit]
+      stages: [commit]
       entry: ament_cpplint
       language: system
       files: \.(h\+\+|h|hh|hxx|hpp|cuh|c|cc|cpp|cu|c\+\+|cxx|tpp|txx)$
       args: ["--linelength=100", "--filter=-whitespace/newline"]
+
+
+- repo: https://github.com/pocc/pre-commit-hooks
+  rev: v1.3.5
+  hooks:
+    - id: clang-tidy
+      name: clang-tidy
+      args: [
+        "--config-file=.clang-tidy",         # Use your local clang-tidy config
+        "--extra-arg=-std=c++17",            # Force C++17
+        "-p", "build"                        # Provide the path to compile_commands.json
+      ]
