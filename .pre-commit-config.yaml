@@ -1,15 +1,86 @@
-repos:
-  - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v17.0.6
-    hooks:
-      - id: clang-format
-        args: [--style=file]
-        files: \.(cpp|hpp|cc|h)$
+# repos:
+#   - repo: https://github.com/pre-commit/mirrors-clang-format
+#     rev: v17.0.6
+#     hooks:
+#       - id: clang-format
+#         args: [--style=file]
+#         files: \.(cpp|hpp|cc|h)$
 
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-added-large-files
+#   - repo: https://github.com/pre-commit/pre-commit-hooks
+#     rev: v4.5.0
+#     hooks:
+#       - id: trailing-whitespace
+#       - id: end-of-file-fixer
+#       - id: check-yaml
+#       - id: check-added-large-files
+
+#   # - repo: https://github.com/pocc/pre-commit-hooks
+#   #   rev: v1.3.5
+#   #   hooks:
+#   #     - id: clang-tidy
+#   #       args: ["--config-file=.clang-tidy", "--extra-arg=-std=c++17", "-p", "build"]
+
+#   - repo: https://github.com/pocc/pre-commit-hooks
+#     rev: master
+#     hooks:
+#       - id: clang-format
+#         args: [--style=Google]
+#       - id: clang-tidy
+#       - id: oclint
+#       - id: uncrustify
+#       - id: cppcheck
+#       - id: cpplint
+#       - id: include-what-you-use
+
+
+repos:
+- repo: local
+  hooks:
+    - id: uncrustify
+      exclude: extern/
+      name: uncrustify
+      language: system
+      entry: ament_uncrustify 
+      types: [c++]
+      args: ['--reformat']
+    - id : ament_flake8
+      exclude: extern/
+      name: ament_flake8
+      language: system
+      entry: ament_flake8
+      types: [python] 
+    - id: lint_cmake
+      name: lint_cmake
+      language: system 
+      entry: ament_lint_cmake
+      types: [cmake]
+    - id: pep257
+      exclude: extern/
+      name: pep257
+      language: system
+      entry: ament_pep257
+      types: [python]
+    - id: lint_xml
+      exclude: extern/
+      name: lint_xml
+      language: system
+      entry: ament_xmllint
+      types: [xml]
+    - id: ament_cppcheck
+      exclude: extern/
+      name: ament_cppcheck
+      description: Static code analysis of C/C++ files.
+      stages: [pre-commit]
+      entry: ament_cppcheck
+      language: system
+      files: \.(h\+\+|h|hh|hxx|hpp|cuh|c|cc|cpp|cu|c\+\+|cxx|tpp|txx)$
+    # Maybe use https://github.com/cpplint/cpplint instead
+    - id: ament_cpplint
+      exclude: extern/
+      name: ament_cpplint
+      description: Static code analysis of C/C++ files.
+      stages: [pre-commit]
+      entry: ament_cpplint
+      language: system
+      files: \.(h\+\+|h|hh|hxx|hpp|cuh|c|cc|cpp|cu|c\+\+|cxx|tpp|txx)$
+      args: ["--linelength=100", "--filter=-whitespace/newline"]

@@ -14,6 +14,7 @@ project(
 # Use modern C++17 standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Enable compiler warnings for better code hygiene
 add_compile_options(-Wall -Wextra -Wpedantic)
@@ -49,8 +50,7 @@ target_link_libraries(MathIntuitions PRIVATE Eigen3::Eigen)
 target_include_directories(
   MathIntuitions
   PRIVATE ${PROJECT_SOURCE_DIR}/include # Your own reusable headers
-          ${PROJECT_SOURCE_DIR}/third_party/mathplot # Header-only plotting
-                                                     # library
+          ${PROJECT_SOURCE_DIR}/third_party/mathplot # Header-only plotting library
 )
 
 # ------------------------------------------------------------------------------
