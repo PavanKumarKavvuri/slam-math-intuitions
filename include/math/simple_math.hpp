@@ -15,11 +15,15 @@
 
 namespace math_ns
 {
-class math_class
+class MathClass
 {
 public:
-  int scalar_member{67};
-  int compute_vector_sum(Eigen::Vector2d a, Eigen::Vector2d b);
+  static constexpr int K_DEFAULT_SCALAR_VALUE = 67;
+  int scalar_member{K_DEFAULT_SCALAR_VALUE};
+  auto computeVectorSum(
+    const Eigen::Vector2d & a_val,
+    const Eigen::Vector2d & b_val) -> Eigen::Vector2d;
+  bool show_plots{false};
 };
 
 }  // namespace math_ns

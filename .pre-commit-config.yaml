@@ -91,8 +91,7 @@ repos:
   hooks:
     - id: clang-tidy
       name: clang-tidy
-      args: [
-        "--config-file=.clang-tidy",         # Use your local clang-tidy config
-        "--extra-arg=-std=c++17",            # Force C++17
-        "-p", "build"                        # Provide the path to compile_commands.json
-      ]
+      args:
+        - --config-file=.clang-tidy
+        - --extra-arg=-std=c++17
+        - -p=build
