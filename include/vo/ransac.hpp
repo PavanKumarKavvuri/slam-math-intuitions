@@ -10,17 +10,49 @@
 
 #pragma once
 
-#include <Eigen/Dense>
-#include <vector>
+#include "Eigen/Dense"
+#include "vector"
+#include "iostream"
+#include "optional"
 
 namespace ransac_ns
 {
-class ransac_math
-{
-public:
-  bool show_plots{false};
 
-  Eigen::Vector2d difference(Eigen::Vector2d a, Eigen::Vector2d b);
-  void print_input_vector_array();
+struct LineParameters
+{
+  std::optional<double> slope{};
+  std::optional<double> intercept{};
+  bool vertical_line{false};
+  std::optional<double> x_cons{};
+};
+
+static constexpr double K_EPS = 1e-12;
+
+
+class RansacMath
+{
+private:
+  bool show_plots;
+  int max_iterations;
+  double threshold;
+
+  auto computeNormalDistance(
+    const Eigen::Vector2d & point_normal,
+    const LineParameters & line_params) -> double;
+  auto computeLineParameters(
+    const Eigen::Vector2d & point_1,
+    const Eigen::Vector2d & point_2) -> LineParameters;
+
+public:
+  explicit RansacMath(int iterations = 10, bool plots = false, double thresh = 10.0)
+  : show_plots(plots),
+    max_iterations(iterations),
+    threshold(thresh)
+  {
+    std::cout << "Ransac Math Class Initiated" << std::endl;
+  }
+
+
+  auto computeBestFitLine(std::vector<Eigen::Vector2d> & input_vector) -> LineParameters;
 };
 }  // namespace ransac_ns

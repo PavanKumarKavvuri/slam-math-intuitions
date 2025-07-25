@@ -1,0 +1,2 @@
+- Need to find a way to automatically fix the whitspace linting errors
+- Need to know why explicit keyword is used with constructors?

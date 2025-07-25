@@ -1,5 +1,5 @@
 # Specify the minimum required CMake version
-cmake_minimum_required(VERSION 3.10...4.0)
+cmake_minimum_required(VERSION 3.12)
 
 # Define the project name, version, description, and languages
 project(
@@ -11,9 +11,10 @@ project(
   LANGUAGES CXX # Use only C++
 )
 
-# Use modern C++17 standard
-set(CMAKE_CXX_STANDARD 23)
+# Use modern C++20 standard
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Enable compiler warnings for better code hygiene
@@ -37,6 +38,9 @@ add_executable(MathIntuitions ${SRC_FILES})
 # target Eigen3::Eigen with correct include paths
 find_package(Eigen3 REQUIRED)
 
+# Explicitly request C++20 features
+target_compile_features(MathIntuitions PRIVATE cxx_std_20)
+
 # Link Eigen to our target — though Eigen is header-only, this ensures correct
 # include paths are set in a portable and modern way
 target_link_libraries(MathIntuitions PRIVATE Eigen3::Eigen)
@@ -59,3 +63,8 @@ target_include_directories(
 
 # For example: target_include_directories(MathIntuitions PRIVATE
 # ${PROJECT_SOURCE_DIR}/external/ceres/include)
+
+
+# Print build info (helpful for debugging)
+message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER}")
+message(STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")

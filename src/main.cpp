@@ -11,6 +11,7 @@
 #include "iostream"
 #include "math/simple_math.hpp"
 #include "vo/ransac.hpp"
+#include "vector"
 
 auto main() -> int
 {
@@ -19,18 +20,30 @@ auto main() -> int
   // std::cout << "We will be using C++ and Linear Algebra for this project" << std::endl;
   // std::cout << "Let's get started!" << std::endl;
 
-  Eigen::Vector2d a_val = {10.0, 20.0};
-  Eigen::Vector2d b_val = {11.8, 23.9};
+  std::vector<Eigen::Vector2d> sample_input_vector = {
+    {1.0, 1.1},
+    {2.1, 2.9},
+    {3.2, 3.8},
+    {4.3, 4.7},
+    {5.4, 5.6},
+    {6.5, 6.5},
+    {7.6, 7.4},
+    {8.7, 8.3},
+    {9.8, 9.2},
+    {10.9, 10.1}
+  };
 
-  ransac_ns::ransac_math math_int;
-  math_ns::MathClass simple_math;
+  ransac_ns::RansacMath math_int(11, true, 8.1);
+  math_int.computeBestFitLine(sample_input_vector);
 
-  Eigen::Vector2d result = math_int.difference(a_val, b_val);
 
-  std::cout << "Difference result : " << result << std::endl;
+  // math_ns::MathClass simple_math;
 
-  Eigen::Vector2d simple_result = simple_math.computeVectorSum(a_val, b_val);
-  std::cout << "Sum result" << simple_result << std::endl;
+  // Eigen::Vector2d result = math_int.difference(a_val, b_val);
+  // std::cout << "Difference result : " << result << std::endl;
+
+  // Eigen::Vector2d simple_result = simple_math.computeVectorSum(a_val, b_val);
+  // std::cout << "Sum result" << simple_result << std::endl;
 
 
   return 0;
