@@ -21,19 +21,19 @@ auto main() -> int
   // std::cout << "Let's get started!" << std::endl;
 
   std::vector<Eigen::Vector2d> sample_input_vector = {
-    {1.0, 1.1},
-    {2.1, 2.9},
-    {3.2, 3.8},
-    {4.3, 4.7},
-    {5.4, 5.6},
-    {6.5, 6.5},
-    {7.6, 7.4},
-    {8.7, 8.3},
-    {9.8, 9.2},
-    {10.9, 10.1}
+    {1.0, 1.5},
+    {2.1, 3.5},
+    {3.2, 4.8},
+    {4.3, 6.7},
+    {5.4, 5.9},
+    {6.5, 8.5},
+    {7.6, 4.4},
+    {8.7, 6.3},
+    {9.8, 2.2},
+    {10.9, 16.1}
   };
 
-  ransac_ns::RansacMath math_int(11, true, 8.1);
+  ransac_ns::RansacMath math_int(25, true, 0.005);
   math_int.computeBestFitLine(sample_input_vector);
 
 
