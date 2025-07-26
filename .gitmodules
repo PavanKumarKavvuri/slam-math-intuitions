@@ -1,0 +1,3 @@
+[submodule "third_party/mathplot"]
+	path = third_party/mathplot
+	url = git@github.com:sebsjames/mathplot.git

@@ -1,1 +1,1 @@
-# slam-toy-project
+## SLAM Math Intuitions

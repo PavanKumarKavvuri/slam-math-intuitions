@@ -1,0 +1,62 @@
+repos:
+- repo: local
+  hooks:
+    - id: uncrustify
+      exclude: extern/
+      name: uncrustify
+      language: system
+      entry: ament_uncrustify 
+      types: [c++]
+      args: ['--reformat']
+    - id : ament_flake8
+      exclude: extern/
+      name: ament_flake8
+      language: system
+      entry: ament_flake8
+      types: [python] 
+    - id: lint_cmake
+      name: lint_cmake
+      language: system 
+      entry: ament_lint_cmake
+      types: [cmake]
+    - id: pep257
+      exclude: extern/
+      name: pep257
+      language: system
+      entry: ament_pep257
+      types: [python]
+    - id: lint_xml
+      exclude: extern/
+      name: lint_xml
+      language: system
+      entry: ament_xmllint
+      types: [xml]
+    - id: ament_cppcheck
+      exclude: extern/
+      name: ament_cppcheck
+      description: Static code analysis of C/C++ files.
+      stages: [pre-commit]
+      entry: ament_cppcheck
+      language: system
+      files: \.(h\+\+|h|hh|hxx|hpp|cuh|c|cc|cpp|cu|c\+\+|cxx|tpp|txx)$
+    # Maybe use https://github.com/cpplint/cpplint instead
+    - id: ament_cpplint
+      exclude: extern/
+      name: ament_cpplint
+      description: Static code analysis of C/C++ files.
+      stages: [pre-commit]
+      entry: ament_cpplint
+      language: system
+      files: \.(h\+\+|h|hh|hxx|hpp|cuh|c|cc|cpp|cu|c\+\+|cxx|tpp|txx)$
+      args: ["--linelength=100", "--filter=-whitespace/newline"]
+
+
+- repo: https://github.com/pocc/pre-commit-hooks
+  rev: v1.3.5
+  hooks:
+    - id: clang-tidy
+      name: clang-tidy
+      args:
+        - --config-file=.clang-tidy
+        - --extra-arg=-std=c++20
+        - -p=build
